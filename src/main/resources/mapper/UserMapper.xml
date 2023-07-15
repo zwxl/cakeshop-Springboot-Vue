@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cakeshopspringboot.dao.UserDao">
+    <update id="updateUser">
+        update user
+        set username = #{username}, password = #{password},email = #{email},name = #{name}, phone=#{phone}, address =#{address},isadmin=#{isadmin},isvalidate=#{isvalidate}
+        where id = #{id}
+    </update>
+
+    <delete id="Batchdelete">
+        delete from user where id in
+        <foreach collection="list" open="(" close=")" separator="," item="id">#{id}</foreach>
+    </delete>
+
+    <insert id="BatchAddUser" parameterType="com.cakeshopspringboot.vo.UserVo">
+        insert into user (username,password,name,email,phone,address)
+        values
+            <foreach collection="list" item="item" index="index" separator=",">
+                (#{item.username},#{item.password},#{item.name},#{item.email},#{item.phone},#{item.address})
+            </foreach>
+    </insert>
+
+</mapper>

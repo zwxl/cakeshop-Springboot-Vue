@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cakeshopspringboot.dao.OrderDao">
+
+    <insert id="InsertOrder" parameterType="com.cakeshopspringboot.entity.Order">
+        insert into orderlist (total,amount,status,datetime,userid,goodsid)
+        values
+        <foreach collection="list" item="item" index="index" separator=",">
+            (#{item.total},#{item.amount},#{item.status},#{item.datetime},#{item.userid},#{item.goodsid})
+        </foreach>
+    </insert>
+    <update id="OrderItem">
+            update orderlist set
+                amount = #{amount}
+            where id = #{id}
+    </update>
+</mapper>
